@@ -12,7 +12,7 @@ _config = {
         'welcome_message': 'CNN with one layer of convolution (handle multiples kernels size) and one dense layer',
         'training': False,  # set to True to train, otherwise use saved model to make predictions
         'seed': 1,
-        'epochs': 10,
+        'epochs': 15,
         'batch_size': 128,
         'datasets_folder': 'twitter-datasets',
         'tw_pos_file': 'train_pos_full.txt',
@@ -42,10 +42,10 @@ _config = {
     },
 
     'model_two_phases_training': {
-        'welcome_message': 'CNN with one layer of convolution (handle multiples kernels size) and one dense layer',
-        'training': False,
+        'welcome_message': 'CNN with one layer of convolution (handle multiples kernels size) and one dense layer and 2 phases training',
+        'training': True,
         'seed': 1,
-        'epochs': 20,
+        'epochs': 15,
         'unfreeze_we_at_epoch': 5,
         'batch_size': 128,
         'datasets_folder': 'twitter-datasets',
@@ -76,10 +76,10 @@ _config = {
     },
 
     'cnn_tests_with_2_dense_layers': {
-        'welcome_message': 'CNN with one layer of convolution (handle multiples kernels size) and one dense layer',
+        'welcome_message': 'CNN with one layer of convolution (handle multiples kernels size) and multiple dense layers',
         'training': True,  # set to train, otherwise use saved model to make predictions
         'seed': 1,
-        'epochs': 20,
+        'epochs': 15,
         'batch_size': 128,
         'datasets_folder': 'twitter-datasets',
         'tw_pos_file': 'train_pos_full.txt',
@@ -105,6 +105,39 @@ _config = {
         'models_checkpoints': 'data/cnn_tests_with_2_dense_layers/model_weights_{epoch:02d}.hdf5',  # where to write model weights during training
         'submission_model': 'data/cnn_tests_with_2_dense_layers/model_submission.hdf5',  # location of model weights used for the submission
         'submission_filename': 'submission_2denses_layers.csv'  # submission file name
+    },
+
+    'glove27b_relu_activation': {
+        'welcome_message': 'CNN with one layer of convolution (handle multiples kernels size) and one dense layer',
+        'training': True, 
+        'seed': 1,
+        'epochs': 10,
+        'batch_size': 128,
+        'datasets_folder': 'twitter-datasets',
+        'tw_pos_file': 'train_pos_full.txt',
+        'tw_neg_file': 'train_neg_full.txt',
+        'tw_test_file': 'test_data.txt',
+        'datasets_subsample': 1.0,  # used to reduce training data size
+        'base_folder': 'data/submitted_model/',  # where to write file
+        'dictionary_size': 20000,  # keep n words in dictionary --> embeddings matrix size
+        'tw_length': 40,  # crop tweets longer than n words
+        'preprocess_func': tweet_preprocess_1,  # tweet preprocess function to use
+        'post_padding': True,  # if set to true, tweets shorter than tw_length are post-padded with 0s, otherwize they are pre-padded
+        'we_file': 'data/glove.twitter.27B.200d.txt',  # use empty embeddings file
+        'we_ver': 1,
+        'we_trainable': True,  # if false --> embeddings are static, otherwize they are trained
+        'test_data_pkl': 'data/submitted_model/test_data.pkl',  # where to write cleaned tweets (cached for prediction)
+        'val_data_ratio': 0.03,  # set to 0.0 to train in blind mode (without validation data)
+        'keras_model': {
+            'builder': model_cnn3,  # see keras_models.py
+            'cnn_filters': 100,  # numbers of filters of the convolution layer
+            'cnn_kernels': (3, 4, 5),  # kernels length
+            'dropout': 0.4,  # dropout rate
+            'dense_size': 64,  # size of the dense (fully connected) layer
+        },
+        'models_checkpoints': 'data/submitted_model/model_weights_{epoch:02d}.hdf5',  # where to write model weights during training
+        'submission_model': 'data/submitted_model/model_submission.hdf5',  # location of model weights used for the submission
+        'submission_filename': 'submission.csv'  # submission file name
     },
 }
 

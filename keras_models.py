@@ -86,3 +86,29 @@ def model_cnn2(we_layer, config):
     # print the description of the model
     model.summary()
     return model
+
+def model_cnn3(we_layer, config):
+    """
+    Keras model that reproduce the dying relu phenomena
+    """
+    model_conf = config.keras_model
+    in_layer = layers.Input(shape=(config.tw_length,),
+                            dtype='int32',
+                            name='input_layer')
+    we = we_layer(in_layer)
+    submodels = []
+    for ks in model_conf.cnn_kernels:
+        conv = layers.Conv1D(model_conf.cnn_filters, ks, padding='valid', activation='relu')(we)
+        submodels.append(layers.GlobalMaxPooling1D()(conv))
+    x = layers.concatenate(submodels)
+    x = layers.Dropout(model_conf.dropout)(x)
+    x = layers.Dense(model_conf.dense_size, activation='relu')(x)
+    x = layers.Dropout(model_conf.dropout)(x)
+    out_layer = layers.Dense(units=2, activation='softmax')(x)
+
+    model = models.Model(in_layer, out_layer)
+    model.compile(loss='binary_crossentropy',
+                  optimizer='rmsprop',
+                  metrics=['acc'])
+    model.summary()
+    return model
