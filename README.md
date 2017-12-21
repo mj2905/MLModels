@@ -59,7 +59,25 @@ All the parameters of the models are defined in `configuration.py`.
 To enable the training phase for the submitted model, simple set `'training': True` in the `submitted_model`. Be aware that this step take a really long time, more than one hour on a computer with a decent GPU.
 
 ### `configuration.py`
-Contain the parameters of the Keras model we used for submission and also other models we tried.
+Contains the parameters of the Keras model we used for submission and also other models we tried.
 
 ### `keras_models.py`
-Contain the generic implementations of the different models we tried, the parameters of the models are defined in `configuration.py`
+Contains the generic implementations of the different models we tried, the parameters of the models are defined in `configuration.py`
+
+
+
+## Description of files for other models (not submitted in kaggle)
+
+Warning : these files take 10 minutes to 30 minutes to run.
+
+### `tfidf_and_nn.py`
+
+Contains the python code used to generate the tf-idf matrix, used in a dense neural network model. 
+
+### `word2vec_and_nn.py`
+
+Contains the python code used to generate the word2vec, used in a dense neural network model. 
+
+### `doc2vec_and_nn.py`
+
+Contains the python code used to generate the doc2vec, used in a dense neural network model. 
