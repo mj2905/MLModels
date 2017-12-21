@@ -17,7 +17,7 @@ We built and ran this project on OSX (last version) and CentOS 7.
 2. Run the script `python3 run.py` with no arguments.
 3. A file `submission.csv` is generated in the same folder as "run.py", upload it to [Kaggle submission page](https://www.kaggle.com/c/epfml17-text/submit) for grading.
 
-### Retrain the model from scratch
+### Retrain the model from scratch (optional, ~ 2 hours on a machine with recent GPU)
 1. Download the [tweets files](https://www.kaggle.com/c/epfml17-text/data)
 2. Download the [Glove words-embeddings](http://nlp.stanford.edu/data/glove.twitter.27B.zip) and unzip them in the `data` folder
 3. In the file `configuration.py`: set `'trainable': True` for the `submitted_model
